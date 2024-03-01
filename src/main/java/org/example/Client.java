@@ -37,4 +37,8 @@ public class Client {
     public void setPhone(Number phone){
         this.phone = phone;
     }
+
+    public String toString(){
+        return "Client: id:"+ id + " name:" + name + " addrees:" +address+" phone:"+phone;
+    }
 }

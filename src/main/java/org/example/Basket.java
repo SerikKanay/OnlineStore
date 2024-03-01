@@ -1,9 +1,13 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Basket {
     private  int itemid;
     private  int clientId;
     private int quantity;
+    private List<Product> products = new ArrayList<>();
     public Basket(){
         super();
     }
@@ -30,5 +34,26 @@ public class Basket {
     }
     public void setQuantity(int quantity){
         this.quantity = quantity;
+    }
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public void addProduct(Product product) {
+        this.products.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "itemid=" + itemid +
+                ", clientId=" + clientId +
+                ", quantity=" + quantity +
+                ", products=" + products +
+                '}';
     }
 }
