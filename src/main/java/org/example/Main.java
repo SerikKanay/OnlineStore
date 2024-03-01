@@ -8,13 +8,19 @@ public class  Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(ProjectConf.class);
-        Product product = context.getBean(Product.class);
-        System.out.println("Product ID: " + product.getId());
-        System.out.println("Product Name: " + product.getName());
-        System.out.println("Product Price: " + product.getPrice());
+        Categoryes cat = (Categoryes) context.getBean("Category");
+        System.out.println(cat);
 
-        Categoryes category = context.getBean(Categoryes.class);
-        System.out.println("Category ID: " + category.getCategoryid());
-        System.out.println("Category Name: " + category.getCategoryName());
+        Product product1 =(Product) context.getBean("Product1");
+        System.out.println(product1);
+
+        Product product2 =(Product) context.getBean("Product2");
+        System.out.println(product2);
+
+        Basket basket = (Basket) context.getBean("Basket");
+        System.out.println(basket);
+
+        Client client = (Client) context.getBean("Client");
+        System.out.println(client);
     }
 }
