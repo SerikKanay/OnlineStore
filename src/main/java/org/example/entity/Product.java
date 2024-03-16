@@ -2,14 +2,19 @@ package org.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Table(name = "product")
 @Entity
 public class Product {
+    @Getter
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
+    @Getter
     @Column(name = "name")
     private String ProductName;
 
@@ -17,23 +22,5 @@ public class Product {
     @JsonIgnore
     @JoinColumn(name = "cat_id")
     private Category category;
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProductName() {
-        return ProductName;
-    }
-
-    public void setProductName(String productName) {
-        ProductName = productName;
-    }
 }

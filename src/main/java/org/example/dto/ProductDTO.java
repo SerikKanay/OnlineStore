@@ -6,7 +6,6 @@ public class ProductDTO {
 
     public ProductDTO(){
     }
-
     public String getName() {
         return name;
     }
