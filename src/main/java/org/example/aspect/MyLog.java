@@ -1,3 +1,4 @@
+
 package org.example.aspect;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class MyLog {
         Logger_Table newLog = new org.example.entity.Logger_Table (null,request,logger.toString(),
                 LocalDateTime.now());
 
-        loggerService.Log(newLog);
+        loggerService.logger(newLog);
 
         log.info("in->{}, out->{}",request,logger);
         return logger;

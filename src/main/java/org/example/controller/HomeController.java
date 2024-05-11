@@ -1,61 +1,82 @@
 package org.example.controller;
 
-import org.example.aspect.ToLog;
 import org.example.dto.CategoryDTO;
 import org.example.dto.ProductDTO;
-import org.example.dto.UserDTO;
 import org.example.entity.Category;
 import org.example.entity.Product;
+import org.example.service.LoggedService;
 import org.example.service.ProductService;
 import org.example.service.CategoryService;
 
 import org.example.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/home")
+@Controller
 public class HomeController {
     private final ProductService productService;
+    private final LoggedService loggedService;
     private final CategoryService categoryService;
-    private final UserService userService;
-    public HomeController(ProductService productService, CategoryService categoryService, UserService userService){
+    public HomeController(ProductService productService, CategoryService categoryService, UserService userService, LoggedService loggedService){
         this.categoryService=categoryService;
         this.productService=productService;
-        this.userService = userService;
+        this.loggedService = loggedService;
+    }
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public String Home(@RequestParam(required = false) String logout, Model model) {
+        if(logout != null) {
+            loggedService.setUserEmail(null);
+        }
+        String userEmail = loggedService.getUserEmail();
+        if (userEmail == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("userEmail", userEmail);
+        return "index";
     }
 
-    @GetMapping
-    public String getHome() {
-        return "Hello Welcome Home!";
+    @RequestMapping(value = "/product",method = RequestMethod.GET)
+    public String getAllProduct(Model model) {
+        List<Product> productsList = productService.getAllProduct();
+        model.addAttribute("products", productsList);
+        return "card";
     }
-    @ToLog
-    @GetMapping("/{name}")
-    public String getName(@PathVariable String name){
-        return "hello welcome"+name+"!!!";
+    @RequestMapping(value = "/productadd",method = RequestMethod.GET)
+    public String ShowProduct(){
+        return "product";
     }
-
-    @PostMapping("/product")
-    public String addProduct(@RequestBody ProductDTO productDTO) {
-        return productService.addProduct(productDTO);
+//    @RequestMapping(value = "/productadd",method = RequestMethod.POST)
+//    public String addProduct(@RequestParam("productName") String name,@RequestParam("catid") Long id,@RequestParam("price") Double price, Model model) {
+//        String result = productService.addProduct(name,id,price);
+//        if (result.equals("ADDED")) {
+//            return "redirect:/index";
+//        } else {
+//            model.addAttribute("error", "error");
+//            return "product";
+//        }
+//    }
+    @RequestMapping(value = "/categoryadd",method = RequestMethod.GET)
+    public String show(){
+        return "category";
     }
-    @ToLog
-    @GetMapping("/product")
-    public List<Product> getAllProduct() {
-        return productService.getAllProduct();
-    }
-
-    @PostMapping("/category")
-    public String addCategory(@RequestBody CategoryDTO categoryDTO) {
-        return categoryService.addCategory(categoryDTO);
-    }
-    @PostMapping("/user")
-    public String addUser(@RequestBody UserDTO userDTO){
-        return userService.addUser(userDTO);
-    }
-    @GetMapping("/category")
-    public List<Category> getAllCategory(){
-        return categoryService.getAllCategory();
+//    @RequestMapping(value = "/categoryadd",method = RequestMethod.POST)
+//    public String addCategory(@RequestParam("id") Long id,@RequestParam("categoryName") String CatName,Model model) {
+//        String result= categoryService.addCategory(id,CatName);
+//        if (result.equals("ADDED")) {
+//            return "redirect:/index";
+//        } else {
+//            model.addAttribute("error", "error");
+//            return "category";
+//        }
+//    }
+    @CrossOrigin
+    @RequestMapping(value = "/category",method = RequestMethod.GET)
+    public String getAllCategory(Model model) {
+        List<Category> categoryList = categoryService.getAllCategory();
+        model.addAttribute("categor", categoryList);
+        return "index";
     }
 }

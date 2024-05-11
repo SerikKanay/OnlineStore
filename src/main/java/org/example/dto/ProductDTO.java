@@ -1,27 +1,17 @@
 package org.example.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.example.entity.Category;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDTO {
+    private long id;
     private String name;
+    private double price;
     private Long category;
-
-    public ProductDTO(){
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getCategory() {
-        return category;
-    }
-
-    public void setCategory(Long category) {
-        this.category = category;
-    }
-    public ProductDTO(String name){
-        this.name=name;
-    }
+    private String image;
 }

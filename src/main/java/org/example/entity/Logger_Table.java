@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "requestLogger")
+@Table(name = "request_Logger")
 
 public class Logger_Table {
     @Id

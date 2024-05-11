@@ -1,52 +1,74 @@
 package org.example.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "users")
 @Entity
-public class User {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements UserDetails {
     @Id
     @GeneratedValue
-    @Column(name ="user_id")
-    private Long User_id;
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "user_name")
-    private String User_name;
-    @Column(name = "Login")
-    private String User_login;
+    private String userName;
+
+    @Column(name = "email")
+    private String userEmail;
+
     @Column(name = "user_pass")
-    private String User_password;
+    private String userPassword;
 
-    public User(){
-    }
-    public Long getUser_id() {
-        return User_id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
-    public void setUser_id(Long user_id) {
-        User_id = user_id;
-    }
-
-    public String getUser_name() {
-        return User_name;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setUser_name(String user_name) {
-        User_name = user_name;
+    @Override
+    public String getPassword() {
+        return this.userPassword;
     }
 
-    public String getUser_login() {
-        return User_login;
+    @Override
+    public String getUsername() {
+        return this.userName;
     }
 
-    public void setUser_login(String user_login) {
-        User_login = user_login;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getUser_password() {
-        return User_password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setUser_password(String user_password) {
-        User_password = user_password;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

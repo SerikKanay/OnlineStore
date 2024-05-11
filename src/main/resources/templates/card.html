@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}" />
+</head>
+<body>
+<div class="content" th:each="product : ${products}">
+    <div>
+    <img th:src= "src/main/resources/static/images+@{product.image}" alt= "a" />
+    <a href=""><h2 th:text="${product.name}"> .name</h2></a>
+    <div class="contss">
+        <div> content</div>
+    </div>
+    <h4 class="price" th:text="${product.price}"> 0.00 </h4>
+    <button class="AL"><a href = "">Read more</a></button>
+    <button class = "edit_product"><a href = "">Edit Product</a></button>
+    <form action = "" method="post">
+        <input type = "hidden" name = "post_id" value="">
+        <button class = "delete_product" type="submit">Delete</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

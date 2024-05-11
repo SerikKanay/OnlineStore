@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LoggerService {
     public final LoggerRepository repository;
-        public Logger_Table Log(Logger_Table log){
+        public Logger_Table logger(Logger_Table log){
             return repository.save(log);
         }
 }

@@ -1,12 +1,17 @@
 server:
-  port: 8088
+  port: 7777
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
     username: postgres
     password: store00
     url: jdbc:postgresql://localhost:5432/Store
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+
+token:
+  signing:
+    secret-key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+
