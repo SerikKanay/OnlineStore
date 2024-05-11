@@ -18,7 +18,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: store00
       POSTGRES_DB: Store
-      PGDATA: /data/postgres
+      PGDATA: /data/Store
     volumes:
           - db:/data/postgres
     ports:
